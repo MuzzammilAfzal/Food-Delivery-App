@@ -23,7 +23,7 @@ const RestaurantDisplay = () => {
 
   return (
     <div>
-      <span className='font-bold text-2xl  rounded-t-2xl   w-screen my-3 '>Restaurants</span>
+      <span className='font-bold text-2xl  rounded-t-2xl   w-screen my-3 mx-2 '>Restaurants</span>
         <div className='flex flex-wrap gap-4 justify-center md:justify-normal p-4'>
         
         {

@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import FoodCard from '../components/FoodCard'
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 const url=import.meta.env.VITE_URL
 
 
 const Restaurant = () => {
 
-    const [order,setOrder]=useState({})
+    const [order,setOrder]=useState(null)
     const [restaurant,setRestaurant]=useState([])
     const [foodList,setFoodList]=useState([])
+    const navigate=useNavigate()
 
     const location=useLocation()
     const query=location.search
@@ -20,7 +21,7 @@ const Restaurant = () => {
          setOrder(prev=>({
             ...prev,[food_id]:quantity
          }))
-         console.log(order)
+
     }
 
     useEffect(()=>{
@@ -29,13 +30,30 @@ const Restaurant = () => {
         headers:{
           _id:id
         }
-      }).then((response)=>response.json()).then((data)=>{setRestaurant(data);setFoodList(data.food);console.log(data.food)})
+      }).then((response)=>response.json()).then((data)=>{setRestaurant(data);setFoodList(data.food)})
     },[])
+
+    const PlaceOrderBar=()=>{
+      if(order!=null){
+        return <div className='w-screen md:w-[50vw] p-2  flex justify-end '>
+         <button className='bg-green-400 rounded-2xl p-2 font-semibold'
+         onClick={()=>{
+          navigate("/confirmOrder",{
+            state:{restaurant,order}
+          })
+        }}
+         >Place Order</button>
+      </div>
+      } 
+    }
+
+  
 
     
 
   return (
     <div className=''>
+       
          <span className='font-bold text-2xl text-center   rounded-t-2xl   w-screen my-2 flex justify-center p-2 '>Menu</span>
          <div className='flex flex-wrap gap-4 p-2 justify-center '>
           {
@@ -46,6 +64,11 @@ const Restaurant = () => {
         })
          }
          </div>
+         <div className='flex justify-center fixed bottom-10 left-0 right-0'>
+                <PlaceOrderBar />
+         </div>
+         
+        
         
     </div>
   )

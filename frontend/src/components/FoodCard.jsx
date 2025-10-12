@@ -31,19 +31,19 @@ const FoodCard = ({food_id,foodName,price,description,image,onOrderChange}) => {
             <button 
             className='bg-red-500 rounded-md px-2 py-0 text-2xl font-bold'
             onClick={()=>{
-                setQuantity(quantity-1)
-                if(quantity<0){
-                    setQuantity(0)
-                }
-                onOrderChange(food_id,quantity)
+                const newQuantity = quantity > 0 ? quantity - 1 : 0;
+                 setQuantity(newQuantity);
+                  onOrderChange(food_id, newQuantity);
             }}
             >-</button>
             <span className='border-1 border-red-500 text-lg font-bold'>{quantity}</span>
             <button
             className='bg-red-500 rounded-md px-2 text-2xl font-bold'
             onClick={()=>{
-                setQuantity(quantity+1)
-                onOrderChange(food_id,quantity)
+                const newQuantity = quantity + 1;
+                  setQuantity(newQuantity);
+                   onOrderChange(food_id, newQuantity);
+
             }}
             >+</button>
            </div>

@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
 
+  
+
     const Login=()=>{
         if(localStorage.getItem("token")){
             return <div className=''>
@@ -22,12 +24,24 @@ const Navbar = () => {
         }
     }
 
+    const TrackOrder=()=>{
+        if(localStorage.getItem("order")){
+            return <div className='flex items-center'>
+                <Link to={`/trackOrder?${localStorage.getItem("order")}`}
+                className='text-white bg-blue-400 rounded-2xl p-2 font-semibold hover:bg-gray-400'
+                >Track Order
+                </Link>
+            </div>
+        }
+    }
+
   return (
     <nav>
     <div className='bg-orange-500 rounded-2xl p-2 md:p-6 flex justify-around'>
       <div className='font-bold text-2xl text-white md:mx-50'>
         Food Delivery
       </div>
+      <TrackOrder/>
       <Login/>
        
     </div>
