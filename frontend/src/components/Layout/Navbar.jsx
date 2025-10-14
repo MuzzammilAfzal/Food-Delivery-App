@@ -12,6 +12,7 @@ const Navbar = () => {
                   className='text-white bg-red-700 rounded-2xl p-2 font-semibold hover:bg-gray-400'
                   onClick={()=>{
                     localStorage.removeItem("token")
+                    localStorage.removeItem("order")
                     location.reload()
                   }}
                 >Logout</button>

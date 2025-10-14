@@ -22,13 +22,13 @@ router.post('/auth/login',async(req,res)=>{
 })
 
 router.post('/auth/signup',async(req,res)=>{
- const {fullName,phoneNo,email,password,deliveryAddress,myCart,myOrders} = req.body
- const User= await user.findOne({phoneNo,email})
+ const {fullName,phoneNo,email,password,deliveryAddress} = req.body
+ const User= await user.findOne({$or: [{ phoneNo }, { email }]})
  if (User){
     res.status(400).json({message:"User already exists"})
  }
  else{
-    const newUser= await user.create({fullName,phoneNo,email,password,deliveryAddress,myCart,myOrders})
+    const newUser= await user.create({fullName,phoneNo,email,password,deliveryAddress})
     const token=  jwt.sign({email,password},process.env.SECERT_KEY,{expiresIn:"1h"})
     if(newUser && token){
        res.status(200).json({message: "user Created successfully ",token}) 
@@ -51,7 +51,7 @@ router.post('/confirmOrder',authJwt,async(req,res)=>{
     const body= await req.body
 
     try {
-       const newOrder= await order.create({statusNumber:1,user_email:req.user.email,restaurant:req.body.restaurant,order:req.body.order,rider:null})
+       const newOrder= await order.create({statusNumber:1,user_email:req.user.email,restaurant:req.body.restaurant,order:req.body.order,rider:0})
        console.log(newOrder._id)
     if(newOrder){
        res.status(200).send({"Message":"Order Confirmed",

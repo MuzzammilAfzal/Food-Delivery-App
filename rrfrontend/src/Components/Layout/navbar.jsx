@@ -1,22 +1,24 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
 
+    const navigate=useNavigate()
   
 
     const Login=()=>{
-        if(localStorage.getItem("token")){
+        if(sessionStorage.getItem("token")){
             return <div className=''>
                 <button 
                   className='text-white bg-red-700 rounded-2xl p-2 font-semibold hover:bg-gray-400'
                   onClick={()=>{
-                    localStorage.removeItem("token")
+                    sessionStorage.removeItem("token")
+                    navigate('/rest/auth/login',{replace:true})
                     location.reload()
                   }}
                 >Logout</button>
             </div>
-        }else{return <Link to={"/auth/login"}>
+        }else{return <Link to={"/rest/auth/login"}>
                 <button
                  className='text-black bg-white rounded-2xl p-2 font-semibold hover:bg-gray-400'
                 >Login</button>

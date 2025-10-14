@@ -24,7 +24,7 @@ const Login = () => {
     });
     const data = await response.json();
     if(data.token){
-        localStorage.setItem("token",data.token)
+        sessionStorage.setItem("token",data.token)
           navigate('/rest',{replace:true})
           location.reload()
           toast.success("Login Successfully")
