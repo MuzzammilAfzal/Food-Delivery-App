@@ -11,6 +11,7 @@ const foodSchema=new mongoose.Schema({
 
 const restaurantSchema= new mongoose.Schema({
     refName : String,
+    password:String,
     phoneNo:Number,
     rating:Number,
     address:String,

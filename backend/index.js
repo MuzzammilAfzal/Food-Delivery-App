@@ -3,6 +3,7 @@ const { default: mongoose } = require('mongoose')
 const {restaurant,user,order}=require("./db/db")
 const cors=require('cors')
 const userRouter=require("./router/user")
+const restRouter=require('./router/rest')
 const app = express()
 const port = 3000
 require('dotenv').config();
@@ -16,6 +17,7 @@ app.use(cors({origin:"*",
 
 
 app.use("/",userRouter)
+app.use("/rest",restRouter)
 
 const server=app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
