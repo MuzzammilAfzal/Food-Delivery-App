@@ -11,7 +11,7 @@ require('dotenv').config();
 app.use(express.json())
 const {WebSocketServer}=require("ws")
 
-app.use(cors({origin:"*",
+app.use(cors({origin:["https://rider-food-delivery.vercel.app","https://rest-food-delivery.vercel.app","https://user-food-delivery-app.vercel.app"],
     methods:["GET","POST","PUT","DELETE"],credentials:true
 }))
 
