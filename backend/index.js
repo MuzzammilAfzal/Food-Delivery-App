@@ -11,12 +11,9 @@ require('dotenv').config();
 app.use(express.json())
 const {WebSocketServer}=require("ws")
 
-app.use(cors({origin:["https://rider-food-delivery.vercel.app","https://rest-food-delivery.vercel.app","https://user-food-delivery-app.vercel.app"],
+app.use(cors({origin:"*",
     methods:["GET","POST","PUT","DELETE"],credentials:true
 }))
-
-app.options('*', cors());
-
 
 
 
@@ -74,7 +71,7 @@ const updateStatustoClient=(ws,intervalId)=>{
     }else{
       status=result
       console.log(status,"hi")
-      ws.send(status)
+      ws.send("rest"+status)
       if(status==undefined){
        ws.close(1000, "Order delivered - connection closed");
         clearInterval(intervalId)
@@ -91,7 +88,7 @@ const updateStatustoClientRider=(ws,intervalId2)=>{
     }else{
       statusRider=resultRider
       console.log(status,"hi")
-      ws.send(statusRider)
+      ws.send("rider"+statusRider)
       if(statusRider==8){
         ws.close(1000, "Order delivered - connection closed");
         clearInterval(intervalId2)
@@ -106,7 +103,7 @@ const updateStatustoClientRider=(ws,intervalId2)=>{
   
  
 });
-ws.on('close',()=>console.log("WS Disconnected"))
+wss.on('close',()=>console.log("WS Disconnected"))
 
 
 

@@ -15,11 +15,11 @@ const Home = () => {
             Accepted Orders 🢂
             </div>
         </Link>
-       <Link to={'/rest/completedOrder'}>
+       {/* <Link to={'/rest/completedOrder'}>
             <div className='bg-orange-500 rounded-2xl font-extrabold text-md text-white p-10 w-screen md:w-[50vw] '>
             Completed Orders 🢂
             </div>
-       </Link>
+       </Link> */}
       </div>
     </>
   )

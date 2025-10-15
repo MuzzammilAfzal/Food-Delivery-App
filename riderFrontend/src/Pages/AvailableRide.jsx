@@ -127,7 +127,7 @@ const AvailableRide = () => {
   )
  }else{
     useEffect(()=>{
-        navigate("/rest/auth/login",{replace:true})
+        navigate("/rider/auth/login",{replace:true})
     },[])
  }
   

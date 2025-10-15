@@ -18,7 +18,7 @@ const CurrentRide = () => {
               token:sessionStorage.getItem("token")
             }
           }).then((response)=>response.json()).then((data)=>{
-           data.map((e,index)=>{
+           data?.map((e,index)=>{
               if(e.statusRider>=6){
                 setAtRestaurant(true)
               }
@@ -30,6 +30,31 @@ const CurrentRide = () => {
             console.log(data)
         }) 
            
+        },[])
+
+        useEffect(()=>{
+           const intervalid=setInterval(() => {
+            fetch(`${url}/rider/currentRide`,{
+            method:"GET",
+            headers:{
+              token:sessionStorage.getItem("token")
+            }
+          }).then((response)=>response.json()).then((data)=>{
+           data?.map((e,index)=>{
+              if(e.statusRider>=6){
+                setAtRestaurant(true)
+              }
+              if(e.statusRider==7){
+                setOnWay(true)
+              }
+            })
+           setRide(data)
+            console.log(data)
+        }) 
+           
+            
+           }, 5000);
+            return () => clearInterval(intervalid);
         },[])
 
     //    useEffect(()=>{
@@ -205,7 +230,7 @@ const CurrentRide = () => {
     )
    }else{
       useEffect(()=>{
-          navigate("/rest/auth/login",{replace:true})
+          navigate("/rider/auth/login",{replace:true})
       },[])
    }
 }

@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+const wsURL=import.meta.env.VITE_WS_URL
 
 
 const TrackOrder = () => {
@@ -10,20 +11,22 @@ const TrackOrder = () => {
     localStorage.setItem("order",orderid)
     const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
 
      useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3000/confirmOrder"); 
+    const ws = new WebSocket(`${wsURL}`); 
     setSocket(ws);
 
 
     ws.onmessage = (event) =>{ 
-        setMessage(event.data);
-        console.log(event.data)
-        console.log(message)
-        if(message=="8"){
+        setMessage(event.data)
+        if(event.data=="8"){
             ws.close(1000, "Order delivered - connection closed")
         }
+        if (messageMap[event.data]) {
+        setMessages(prev => [...prev, event.data]);
+    }
     }
     ws.onclose = () => console.log("🔴 WS Disconnected");
     ws.onopen=()=>{
@@ -73,6 +76,17 @@ const TrackOrder = () => {
 //     )
 // }
 
+const messageMap = {
+  rest2: "Restaurant Accepted Order",
+  rest3: "Restaurant started Preparing Order",
+  rest4: "Your Order is Ready at Restaurant and Waiting for Delivery Boy",
+  rider5: "Delivery Boy Accepted Ride and on the Way to Restaurant",
+  rider6: "Delivery Boy at the Restaurant",
+  rider7: "Delivery Boy took Order and Is on the Way",
+  rider8: "Order is at Your Door"
+};
+
+
 
  if(localStorage.getItem("token")){
     if(localStorage.getItem("order")){
@@ -92,27 +106,9 @@ const TrackOrder = () => {
                  </div>
             </div>
             <div className=''>
-             {
-               message>=2 && <UpdateBlock text={"Restaurant Accepted Order"}/> 
-             }
-              {
-               message>=3 && <UpdateBlock text={"Restaurant started Preparing Order"}/> 
-             }
-             {
-               message>=4 && <UpdateBlock text={"Your Order is Ready at Restaurant and Waiting for Delivery Boy"}/> 
-             }
-             {
-               message>=5 && <UpdateBlock text={"Delivery Boy Accepted Ride and on the Way to Restaurant"}/> 
-             }
-             {
-               message>=6 && <UpdateBlock text={"Delivery Boy at the Restaurant"}/> 
-             }
-            {
-               message>=7 && <UpdateBlock text={"Delivery Boy took Order and Is on the Way"}/> 
-             }
-             {
-               message==8 && <UpdateBlock text={"Order is at Your Door"}/> 
-             }
+             {messages.map((msg, index) => (
+                 <UpdateBlock key={index} text={messageMap[msg] } />
+              ))}
 
              {
                 message!=8 && <WaitBlock waitText={"Waiting For Updates "} /> 
