@@ -18,6 +18,14 @@ const AcceptedOrder = () => {
             }
           }).then((response)=>response.json()).then((data)=>{
             const inOrder=data.filter(item=>(item.statusNumber!=1&& item.statusNumber<8))
+            inOrder.map((e,index)=>{
+              if(e.statusNumber>=3){
+                setFoodPrepared(true)
+              }
+              if(e.statusNumber==4){
+                setOrderReady(true)
+              }
+            })
             setOrders(inOrder)
             console.log(inOrder)
         }) 
@@ -121,6 +129,20 @@ const AcceptedOrder = () => {
               className='p-2 bg-purple-500 rounded-2xl border '
               onClick={()=>{
                 setOrderReady(true)
+                fetch(`${url}/rest/updateOrder`,{
+                        method:"POST",
+                        headers:{
+                          token:sessionStorage.getItem("token"),
+                          status:4,
+                          orderid:e._id
+                        }
+                      }).then((response)=>response.json()).then((data)=>{
+                        if(data){
+                            toast.success(data.message)
+                        }else{
+                            toast.error(data.message)
+                        }
+                    })
             }}
               > order Ready</button>
                </div>

@@ -99,16 +99,16 @@ const TrackOrder = () => {
                message>=3 && <UpdateBlock text={"Restaurant started Preparing Order"}/> 
              }
              {
-               message>=4 && <UpdateBlock text={"Delivery Boy Accepted Ride and on the Way to Restaurant"}/> 
+               message>=4 && <UpdateBlock text={"Your Order is Ready at Restaurant and Waiting for Delivery Boy"}/> 
              }
              {
-               message>=5 && <UpdateBlock text={"Delivery Boy at the Restaurant"}/> 
+               message>=5 && <UpdateBlock text={"Delivery Boy Accepted Ride and on the Way to Restaurant"}/> 
              }
              {
-               message>=6 && <UpdateBlock text={"Packed and Handed Over to Delivery Boy"}/> 
+               message>=6 && <UpdateBlock text={"Delivery Boy at the Restaurant"}/> 
              }
             {
-               message>=7 && <UpdateBlock text={"Order on the Way"}/> 
+               message>=7 && <UpdateBlock text={"Delivery Boy took Order and Is on the Way"}/> 
              }
              {
                message==8 && <UpdateBlock text={"Order is at Your Door"}/> 
