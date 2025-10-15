@@ -7,7 +7,7 @@ import Restaurant from './pages/Restaurant';
 import ConfirmOrder from './pages/ConfirmOrder';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import TrackOrder from './pages/trackOrder';
+import TrackOrder from './pages/TrackOrder'
 
 
 function App() {

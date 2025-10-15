@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
-import { replace, useLoaderData, useLocation, useNavigate } from 'react-router-dom'
-import { jsx } from 'react/jsx-runtime'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 
 const TrackOrder = () => {
     const navigate=useNavigate()
