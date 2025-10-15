@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Layout from './Components/Layout/Layout';
 import Home from './pages/Home'
 import IncomingOrder from './pages/IncomingOrder'
-import AcceptedOrder from './pages/acceptedOrder';
+import AcceptedOrder from './pages/AcceptedOrder';
 import CompletedOrder from './pages/CompletedOrders';
 
 
