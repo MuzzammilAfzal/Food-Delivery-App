@@ -15,6 +15,9 @@ app.use(cors({origin:["https://rider-food-delivery.vercel.app","https://rest-foo
     methods:["GET","POST","PUT","DELETE"],credentials:true
 }))
 
+app.options('*', cors());
+
+
 
 
 app.use("/",userRouter)
@@ -103,7 +106,7 @@ const updateStatustoClientRider=(ws,intervalId2)=>{
   
  
 });
-wss.on('close',()=>console.log("WS Disconnected"))
+ws.on('close',()=>console.log("WS Disconnected"))
 
 
 
