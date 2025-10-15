@@ -51,7 +51,7 @@ router.post('/confirmOrder',authJwt,async(req,res)=>{
     const body= await req.body
 
     try {
-       const newOrder= await order.create({statusNumber:1,user_email:req.user.email,restaurant:req.body.restaurant,order:req.body.order,rider:0})
+       const newOrder= await order.create({statusNumber:1,statusRider:4,user_email:req.user.email,restaurant:req.body.restaurant,order:req.body.order,rider:0})
        console.log(newOrder._id)
     if(newOrder){
        res.status(200).send({"Message":"Order Confirmed",
