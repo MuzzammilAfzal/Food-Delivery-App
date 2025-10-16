@@ -111,7 +111,7 @@ const messageMap = {
               ))}
 
              {
-                message!=8 && <WaitBlock waitText={"Waiting For Updates "} /> 
+                message!="rider8" && <WaitBlock waitText={"Waiting For Updates "} /> 
              }
             </div>
             <div className='flex justify-center'>
