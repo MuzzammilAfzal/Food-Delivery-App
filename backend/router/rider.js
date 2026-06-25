@@ -49,24 +49,29 @@ router.post('/acceptRide',authJwt,async(req,res)=>{
    }
 })
 
-router.get('/currentRide',authJwt,async(req,res)=>{
-   const rider=req.user._id
-   const ride= await order.find({"rider":rider})
-   if(ride){
-      ride.map((e)=>{
-         if(e.statusRider!=8){
-          console.log(ride)
-         res.status(200).json(ride)
-      }else{
-         res.status(404).json({message:"error"})
-      }
-      })
-     
-   }else{
-       res.status(404).json({message:"error"})
-   }
+router.get('/currentRide', authJwt, async (req, res) => {
+    try {
+        const rider = req.user._id;
 
-})
+        const ride = await order.findOne({
+            rider: rider,
+            statusRider: { $ne: 8 }
+        });
+
+        if (!ride) {
+            return res.status(404).json({
+                message: "No current ride found"
+            });
+        }
+
+        res.status(200).json(ride);
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});
 
 router.post('/updateRide',authJwt,async(req,res)=>{
    const status=req.headers.status
